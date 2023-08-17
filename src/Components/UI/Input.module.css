@@ -8,6 +8,7 @@
   cursor: pointer;
   font-size: 18px;
   font-weight: 500;
+  text-align: left;
 }
 .input input {
   padding: 6px;
