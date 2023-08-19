@@ -4,7 +4,7 @@ import Input from "../../UI/Input";
 
 import Classes from "./WorkExperience.module.css";
 
-const WorkInfo = () => {
+const WorkInfo = (props) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const companyNameRef = useRef("");
   const positionNameRef = useRef("");

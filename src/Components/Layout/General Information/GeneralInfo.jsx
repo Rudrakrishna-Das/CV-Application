@@ -11,11 +11,13 @@ const GeneralInfo = (props) => {
   const numberRef = useRef("");
   const cvSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(
-      nameRef.current.values,
-      emailRef.current.values,
-      numberRef.current.values
-    );
+    const generalDetails = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      phoneNumber: numberRef.current.value,
+    };
+    props.genInfo(generalDetails);
+
     setIsDisabled(true);
   };
   const editHandler = () => {

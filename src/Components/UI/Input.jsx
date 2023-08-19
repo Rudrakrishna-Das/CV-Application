@@ -3,7 +3,11 @@ import Classes from "./Input.module.css";
 
 const Input = forwardRef((props, ref) => {
   return (
-    <div className={Classes.input}>
+    <div
+      className={`${Classes.input} ${
+        props.type === "date" ? Classes.size : ""
+      }`}
+    >
       <label htmlFor={props.name}>{props.name}</label>
       <input
         type={props.type}

@@ -4,7 +4,7 @@ import Input from "../../UI/Input";
 
 import Classes from "./EducationalInfo.module.css";
 
-const EducationalInfo = () => {
+const EducationalInfo = (props) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const schoolNameRef = useRef("");
   const courseNameRef = useRef("");
@@ -13,12 +13,14 @@ const EducationalInfo = () => {
 
   const cvSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(
-      schoolNameRef.current.values,
-      courseNameRef.current.values,
-      dateStartedRef.current.values,
-      dateCompletedRef.current.values
-    );
+    const educationInfo = {
+      schoolName: schoolNameRef.current.values,
+      courseName: courseNameRef.current.values,
+      startDate: dateStartedRef.current.values,
+      endDate: dateCompletedRef.current.values,
+    };
+
+    props.educationInfo(educationInfo);
     setIsDisabled(true);
   };
 

@@ -18,6 +18,19 @@
   background-color: rgb(180, 240, 180);
 }
 
+.input input:disabled {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+}
+.input input:disabled:hover {
+  background-color: rgb(75, 75, 75);
+}
+
+.size {
+  width: 350px;
+}
+
 .input input:hover {
   background-color: rgb(130, 199, 130);
 }
