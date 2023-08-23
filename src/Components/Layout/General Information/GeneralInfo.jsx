@@ -38,17 +38,17 @@ const GeneralInfo = (props) => {
   };
   return (
     <section className={Classes.section}>
-      <h1
-        style={{
-          textAlign: "left",
-          textDecoration: "underline",
-          marginBottom: "8px",
-        }}
-      >
-        General Information
-      </h1>
       {!isSubmitted ? (
         <form onSubmit={cvSubmitHandler} className={Classes.form}>
+          <h1
+            style={{
+              textAlign: "left",
+              textDecoration: "underline",
+              marginBottom: "8px",
+            }}
+          >
+            General Information
+          </h1>
           <div className={Classes.input}>
             <label htmlFor="name">Name</label>
             <input
