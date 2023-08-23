@@ -1,75 +1,130 @@
 import { useRef, useState } from "react";
 
-import Input from "../../UI/Input";
-
 import Classes from "./EducationalInfo.module.css";
 
 const EducationalInfo = (props) => {
-  const [isDisabled, setIsDisabled] = useState(false);
-  const schoolNameRef = useRef("");
-  const courseNameRef = useRef("");
-  const dateStartedRef = useRef("");
-  const dateCompletedRef = useRef("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [schoolName, setSchoolName] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const cvSubmitHandler = (e) => {
     e.preventDefault();
-    const educationInfo = {
-      schoolName: schoolNameRef.current.values,
-      courseName: courseNameRef.current.values,
-      startDate: dateStartedRef.current.values,
-      endDate: dateCompletedRef.current.values,
-    };
+    if (
+      schoolName.trim().length === 0 ||
+      courseName.trim().length === 0 ||
+      startDate.trim().length === 0 ||
+      endDate.trim().length === 0
+    ) {
+      setHasError(true);
+    } else {
+      setIsSubmitted(true);
+    }
+  };
 
-    props.educationInfo(educationInfo);
-    setIsDisabled(true);
+  const getSchoolNameValueHandler = (e) => {
+    setSchoolName(e.target.value);
+  };
+
+  const getCourseNameValueHandler = (e) => {
+    setCourseName(e.target.value);
+  };
+
+  const getStartDateNameValueHandler = (e) => {
+    setHasError(false);
+    setStartDate(e.target.value);
+  };
+  const getEndDateValueHandler = (e) => {
+    setHasError(false);
+    setEndDate(e.target.value);
   };
 
   const editHandler = () => {
-    setIsDisabled(false);
+    setIsSubmitted(false);
   };
+
   return (
     <section className={Classes.section}>
-      <form onSubmit={cvSubmitHandler} className={Classes.form}>
-        <h1 style={{ textAlign: "left" }}>Educational Information</h1>
-        <Input
-          type="text"
-          name="School Name"
-          ref={schoolNameRef}
-          disabled={isDisabled}
-          value={schoolNameRef?.current.values}
-        />
-        <Input
-          type="text"
-          name="Course Name"
-          ref={courseNameRef}
-          disabled={isDisabled}
-          value={courseNameRef?.current.values}
-        />
-        <div className={Classes.duration}>
-          <Input
-            type="date"
-            name="Date Started"
-            ref={dateStartedRef}
-            disabled={isDisabled}
-            value={dateStartedRef?.current.values}
-          />
-          <Input
-            type="date"
-            name="Date Completed"
-            ref={dateCompletedRef}
-            disabled={isDisabled}
-            value={dateCompletedRef?.current.values}
-          />
-        </div>
-        <div className={Classes["action_button"]}>
-          {isDisabled && (
-            <button onClick={editHandler} type="button">
-              Edit
-            </button>
+      <h1
+        style={{
+          textAlign: "left",
+          textDecoration: "underline",
+          marginBottom: "8px",
+        }}
+      >
+        Educational Information
+      </h1>
+      {!isSubmitted ? (
+        <form onSubmit={cvSubmitHandler} className={Classes.form}>
+          <div className={Classes.input}>
+            <label htmlFor="schoolname">School Name</label>
+            <input
+              type="text"
+              id="schoolname"
+              placeholder="Enter your company name"
+              value={schoolName}
+              onChange={getSchoolNameValueHandler}
+            />
+          </div>
+          <div className={Classes.input}>
+            <label htmlFor="coursename">Course Name</label>
+            <input
+              type="text"
+              id="coursename"
+              placeholder="Enter your position name"
+              value={courseName}
+              onChange={getCourseNameValueHandler}
+            />
+          </div>
+          <div className={Classes.date}>
+            <div className={Classes.input}>
+              <label htmlFor="startdate">Start Date</label>
+              <input
+                type="date"
+                id="startdate"
+                placeholder="Enter your start date"
+                value={startDate}
+                onChange={getStartDateNameValueHandler}
+              />
+            </div>
+            <div className={Classes.input}>
+              <label htmlFor="enddate">End Date</label>
+              <input
+                type="date"
+                id="enddate"
+                placeholder="Enter your end date"
+                value={endDate}
+                onChange={getEndDateValueHandler}
+              />
+            </div>
+          </div>
+          {hasError && (
+            <h5 className={Classes.error}>Any field can't be empty</h5>
           )}
-          <button type="submit"> Submit</button>
+          <div className={Classes["action_button"]}>
+            <button type="submit"> Submit</button>
+          </div>
+        </form>
+      ) : (
+        <div className={Classes["education_info"]}>
+          <div className={Classes["school_details"]}>
+            <div className={Classes["education_details"]}>
+              <h2>{schoolName}</h2>
+              <h4>{courseName}</h4>
+            </div>
+            <div className={Classes.time}>
+              <h5>{startDate}</h5>
+              <p>-</p>
+              <h5>{endDate}</h5>
+            </div>
+          </div>
+          <button onClick={editHandler} className={Classes.edit}>
+            Edit
+          </button>
         </div>
-      </form>
+      )}
     </section>
   );
 };

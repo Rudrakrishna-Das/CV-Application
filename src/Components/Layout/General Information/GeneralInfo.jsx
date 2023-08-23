@@ -1,62 +1,104 @@
 import { useRef, useState } from "react";
 
-import Input from "../../UI/Input";
-
 import Classes from "./GeneralInfo.module.css";
 
 const GeneralInfo = (props) => {
-  const [isDisabled, setIsDisabled] = useState(false);
-  const nameRef = useRef("");
-  const emailRef = useRef("");
-  const numberRef = useRef("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+
   const cvSubmitHandler = (e) => {
     e.preventDefault();
-    const generalDetails = {
-      name: nameRef.current.value,
-      email: emailRef.current.value,
-      phoneNumber: numberRef.current.value,
-    };
-    props.genInfo(generalDetails);
-
-    setIsDisabled(true);
+    if (
+      name.trim().length === 0 ||
+      email.trim().length === 0 ||
+      number.trim().length === 0
+    ) {
+      setHasError(true);
+    } else {
+      setIsSubmitted(true);
+    }
   };
   const editHandler = () => {
-    setIsDisabled(false);
+    setIsSubmitted(false);
+  };
+  const getNameValueHandler = (e) => {
+    setHasError(false);
+    setName(e.target.value);
+  };
+  const getEmailValueHandler = (e) => {
+    setHasError(false);
+    setEmail(e.target.value);
+  };
+  const getNumberValueHandler = (e) => {
+    setHasError(false);
+    setNumber(e.target.value);
   };
   return (
     <section className={Classes.section}>
-      <form onSubmit={cvSubmitHandler} className={Classes.form}>
-        <h1 style={{ textAlign: "left" }}>General Information</h1>
-        <Input
-          type="text"
-          name="Name"
-          ref={nameRef}
-          disabled={isDisabled}
-          value={nameRef?.current.values}
-        />
-        <Input
-          type="email"
-          name="Email"
-          ref={emailRef}
-          disabled={isDisabled}
-          value={emailRef?.current.values}
-        />
-        <Input
-          type="number"
-          name="Phone Number"
-          ref={numberRef}
-          disabled={isDisabled}
-          value={numberRef?.current.values}
-        />
-        <div className={Classes["action_button"]}>
-          {isDisabled && (
-            <button onClick={editHandler} type="button">
-              Edit
-            </button>
+      <h1
+        style={{
+          textAlign: "left",
+          textDecoration: "underline",
+          marginBottom: "8px",
+        }}
+      >
+        General Information
+      </h1>
+      {!isSubmitted ? (
+        <form onSubmit={cvSubmitHandler} className={Classes.form}>
+          <div className={Classes.input}>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter your name"
+              value={name}
+              onChange={getNameValueHandler}
+            />
+          </div>
+          <div className={Classes.input}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={getEmailValueHandler}
+            />
+          </div>
+          <div className={Classes.input}>
+            <label htmlFor="number">Number</label>
+            <input
+              type="number"
+              id="number"
+              placeholder="Enter your number"
+              value={number}
+              onChange={getNumberValueHandler}
+            />
+          </div>
+          {hasError && (
+            <h5 className={Classes.error}>Please Enter Proper Value</h5>
           )}
-          <button type="submit"> Submit</button>
-        </div>
-      </form>
+          <div className={Classes["action_button"]}>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      ) : (
+        <section className={Classes["gen_info"]}>
+          <h1>{name}</h1>
+          <hr />
+          <div className={Classes.info}>
+            <h5>{email}</h5>
+            <h5>{number}</h5>
+          </div>
+          <button onClick={editHandler} className={Classes.edit}>
+            Edit
+          </button>
+        </section>
+      )}
     </section>
   );
 };

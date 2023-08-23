@@ -23,13 +23,92 @@
 .main {
   height: 87.5%;
   border: 2px solid black;
+  color: black;
   padding: 10px;
+  overflow-y: scroll;
 }
-.gen {
+
+.main input {
+  background-color: transparent;
+  border: none;
+}
+.main textarea {
+  max-height: 3rem;
+  min-height: 3rem;
+  max-width: 100%;
+  min-width: 100%;
+  background-color: transparent;
+  border: none;
   color: black;
 }
+/* GENERAL */
+.gen h1 {
+  text-align: center;
+  font-size: 30px;
+}
+.gen .details {
+  margin-left: -15px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* WORK */
+.work_details {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.work_details .duration {
+  display: flex;
+}
+
+.work_details .duration input {
+  margin-top: -16px;
+  margin-left: 8px;
+  margin-right: -4px;
+  font-size: 6px;
+}
+
+/* EDUCATION */
+.education_details {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.education_details .duration {
+  display: flex;
+}
+
+.education_details .duration input {
+  margin-top: -18px;
+  margin-left: 8px;
+  margin-right: -8px;
+  font-size: 6px;
+}
+
+.btn {
+  text-align: right;
+  margin-top: 4px;
+}
+.main button {
+  cursor: pointer;
+  margin: 0 4px;
+  padding: 4px 6px;
+  background-color: rgb(72, 146, 72);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+}
+
+.main button:hover {
+  background-color: rgb(36, 95, 36);
+}
+
 @media (max-width: 266px) {
   .body {
-    top: 74%;
+    left: -100%;
   }
 }

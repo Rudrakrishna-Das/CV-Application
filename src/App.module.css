@@ -16,6 +16,6 @@
   transition: all 0.54s;
 }
 
-.details button:hover {
+.details .previoew:hover {
   background-color: rgb(125, 177, 125);
 }

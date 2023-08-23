@@ -1,7 +1,10 @@
 import { forwardRef } from "react";
 import Classes from "./Input.module.css";
 
-const Input = forwardRef((props, ref) => {
+const Input = (props) => {
+  const valueChangeHandler = (e) => {
+    props.onValue(e.target.value);
+  };
   return (
     <div
       className={`${Classes.input} ${
@@ -12,12 +15,11 @@ const Input = forwardRef((props, ref) => {
       <input
         type={props.type}
         id={props.name}
-        ref={ref}
         placeholder={`Enter ${props.name}`}
-        disabled={props.disabled}
+        onChange={valueChangeHandler}
       />
     </div>
   );
-});
+};
 
 export default Input;
