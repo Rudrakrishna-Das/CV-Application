@@ -1,21 +1,20 @@
 .details {
   width: 78rem;
   margin-left: 4rem;
+  text-align: right;
 }
 
-.details .preview {
-  cursor: pointer;
-  width: 5rem;
-  height: 2rem;
-  position: fixed;
-  right: 3rem;
-  top: 80%;
-  background-color: rgb(180, 240, 180);
+.btn {
+  margin: 10px 6px;
+  padding: 7px 10px;
   border: none;
-  border-radius: 5px;
-  transition: all 0.54s;
+  background-color: rgb(29, 75, 29);
+  color: rgb(207, 206, 206);
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.details .previoew:hover {
-  background-color: rgb(125, 177, 125);
+.btn:hover {
+  background-color: rgb(19, 49, 19);
 }

@@ -53,15 +53,6 @@ const WorkInfo = () => {
 
   return (
     <section className={Classes.section}>
-      <h1
-        style={{
-          textAlign: "left",
-          textDecoration: "underline",
-          marginBottom: "8px",
-        }}
-      >
-        Work Experience
-      </h1>
       {!isSubmitted ? (
         <form onSubmit={cvSubmitHandler} className={Classes.form}>
           <div className={Classes.input}>
