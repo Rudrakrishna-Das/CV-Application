@@ -6,26 +6,44 @@ import WorkInfo from "./Components/Layout/Practical/WorkExperience";
 
 import Classes from "./App.module.css";
 
-const works = [];
-const educations = [];
 function App() {
-  const [workNumber, setWorkNumber] = useState(1);
-  const [educationNumber, setEducationNumber] = useState(1);
+  const [allWorks, setAllWorks] = useState([
+    { comp: <WorkInfo />, id: Math.random() },
+  ]);
+  const [allEducations, setAllEducations] = useState([
+    { comp: <EducationalInfo />, id: Math.random() },
+  ]);
 
   const addWorkField = () => {
-    setWorkNumber((prevState) => prevState + 1);
+    setAllWorks((prevState) => [
+      ...prevState,
+      { comp: <WorkInfo />, id: Math.random() },
+    ]);
   };
 
   const addEducationField = () => {
-    setEducationNumber((prevState) => prevState + 1);
+    setAllEducations((prevState) => [
+      ...prevState,
+      { comp: <EducationalInfo />, id: Math.random() },
+    ]);
   };
 
-  for (let i = works.length; i < workNumber; i++) {
-    works.push({ comp: <WorkInfo />, id: Math.random() });
-  }
-  for (let i = educations.length; i < educationNumber; i++) {
-    educations.push({ comp: <EducationalInfo />, id: Math.random() });
-  }
+  const removeWorkField = (id) => {
+    setAllWorks((prevState) => {
+      const filteredItem = prevState.filter((work) => work.id !== id);
+      return filteredItem;
+    });
+  };
+
+  const removeEducationField = (id) => {
+    setAllEducations((prevState) => {
+      const updatedEducation = prevState.filter(
+        (education) => education.id !== id
+      );
+      return updatedEducation;
+    });
+  };
+
   return (
     <div className={Classes.details}>
       <Card>
@@ -43,9 +61,17 @@ function App() {
           Work Experience
         </h1>
         <ul>
-          {works.map((work) => (
+          {allWorks.map((work, i) => (
             <li style={{ listStyle: "none", marginTop: "10px" }} key={work.id}>
               {work.comp}
+              {i !== 0 && (
+                <button
+                  onClick={removeWorkField.bind(null, work.id)}
+                  className={Classes.btn}
+                >
+                  Remove
+                </button>
+              )}
             </li>
           ))}
         </ul>
@@ -63,12 +89,20 @@ function App() {
         >
           Educational Information
         </h1>
-        {educations.map((education) => (
+        {allEducations.map((education, i) => (
           <li
             style={{ listStyle: "none", marginTop: "10px" }}
             key={education.id}
           >
             {education.comp}
+            {i !== 0 && (
+              <button
+                onClick={removeEducationField.bind(null, education.id)}
+                className={Classes.btn}
+              >
+                Remove
+              </button>
+            )}
           </li>
         ))}
         <button className={Classes.btn} onClick={addEducationField}>
